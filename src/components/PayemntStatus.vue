@@ -632,12 +632,12 @@ export default {
                 app.loading = false;
                 app.done = true;
 
-// CODE PIXEL TAG
+                // CODE PIXEL TAG
                 fbq('track', 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
-                snaptr('track', 'PURCHASE', {'client_email': app.order.email, 'currency': app.country == 8 ? "SAR" : "BHD", 'price' : Number(app.order.totalPrice), 'item_ids' : this.$route.params.order_id});
+                snaptr('track', 'Purchase', {'client_email': app.order.email, 'currency': app.country == 8 ? "SAR" : "BHD", 'price' : Number(app.order.totalPrice), 'item_ids' : this.$route.params.order_id});
                 twq('track', 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
-                ttq.track( 'CompletePayment', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), content_id : this.$route.params.order_id});
-                gtag('event',  'purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
+                ttq.track( 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), content_id : this.$route.params.order_id});
+                gtag('event',  'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
 
             } else {
                 let errorMsg = "An error occurred during the payment process";

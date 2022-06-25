@@ -2655,6 +2655,57 @@ if(this.general_o_type == 'add'){
             function (response) {
               app.finished = true;
               console.log("create order", response);
+              console.log("create order", response.data.success);
+
+              if(response.data.success){
+                let order_id = response.data.data.id;
+                console.log("create order order_id", order_id);
+
+
+                // CODE PIXEL TAG
+                fbq("track", "Purchase", {
+                  'client_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'value' : Number(app.order.totalPrice), 
+                  'order_id' : order_id
+                });
+                snaptr("track", "Purchase", {
+                  'client_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'value' : Number(app.order.totalPrice), 
+                  'order_id' : order_id
+                });
+                twq("track", "Purchase", {
+                  'client_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'value' : Number(app.order.totalPrice), 
+                  'order_id' : order_id
+                });
+                ttq.track("Purchase", {
+                  'client_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'value' : Number(app.order.totalPrice), 
+                  'order_id' : order_id
+                });
+                gtag("event", "Purchase", {
+                  'client_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'value' : Number(app.order.totalPrice), 
+                  'order_id' : order_id
+                });
+
+
+              }
+
+              
+              
+
+
+              
+
+              
+              
+              
               // assign the first order id to be set as the parent id for the
               // next orders.
               // if (i == 0) app.order.id = response.data.data.id;
