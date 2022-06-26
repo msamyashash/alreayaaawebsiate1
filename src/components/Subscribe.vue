@@ -2661,6 +2661,22 @@ if(this.general_o_type == 'add'){
                 let order_id = response.data.data.id;
                 console.log("create order order_id", order_id);
 
+                dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+                dataLayer.push({
+                  'event': 'purchase',
+                  'ecommerce': {
+                    'currencyCode': 'SAR',
+                    'details': {                                // 'add' actionFieldObject measures.
+                      'client_email': app.order.email,                         // Transaction ID. Required for purchases and refunds.
+                      'currency': app.country == 8 ? "SAR" : "BHD",
+                      'price': Number(app.order.totalPrice),                     // Total transaction value (incl. tax and shipping)
+                      'order_id':order_id,
+                    }
+                  }
+                });
+
+                
+
 
                 // CODE PIXEL TAG
                 fbq("track", "Purchase", {
@@ -3410,6 +3426,20 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
           'Handicap_Check': app.handica == false ? "Not Handicap" : "Handicap",
         });
 
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+          'event': 'addToCart',
+          'ecommerce': {
+            'currencyCode': 'SAR',
+            'add': {                                // 'add' actionFieldObject measures.
+              'products': [{                        //  adding a product to a shopping cart.
+                'card_type': app.type == 1 ? "Single" : "Family",
+                'Handicap_Check':  app.handica == false ? "Not Handicap" : "Handicap",
+              }]
+            }
+          }
+        });
+
         // app.paystep = 2;
         console.log("orders No Errors Step One true");
        
@@ -3421,6 +3451,7 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
       let app = this;
    if (await this.ordersErrorsStepOne()) {
 
+      window.scrollTo(0,0);
       window.scrollTo(0,0);
       window.scrollTo(0,0);
       window.scrollTo(0,0);

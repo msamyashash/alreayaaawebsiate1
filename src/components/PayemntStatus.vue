@@ -639,6 +639,22 @@ export default {
                 ttq.track( 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), content_id : this.$route.params.order_id});
                 gtag('event',  'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
 
+                dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+                dataLayer.push({
+                  'event': 'purchase',
+                  'ecommerce': {
+                    'currencyCode': 'SAR',
+                    'details': {                                // 'add' actionFieldObject measures.
+                        'client_email': app.order.email,                         // Transaction ID. Required for purchases and refunds.
+                        'currency': app.country == 8 ? "SAR" : "BHD",
+                        'price': Number(app.order.totalPrice),                     // Total transaction value (incl. tax and shipping)
+                        'order_id':this.$route.params.order_id,
+                    }
+                  }
+                });
+
+                
+
             } else {
                 let errorMsg = "An error occurred during the payment process";
                 if (this.lang == "ar") {
@@ -665,6 +681,20 @@ export default {
                 twq('track', 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
                 ttq.track( 'CompletePayment', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), content_id : this.$route.params.order_id});
                 gtag('event',  'purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
+
+                dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+                dataLayer.push({
+                'ecommerce': {
+                    'purchase': {
+                    'actionField': {
+                        'client_email': app.order.email,                         // Transaction ID. Required for purchases and refunds.
+                        'currency': app.country == 8 ? "SAR" : "BHD",
+                        'price': Number(app.order.totalPrice),                     // Total transaction value (incl. tax and shipping)
+                        'order_id':this.$route.params.order_id,
+                    },
+                    }
+                }
+                });
 
             } else {
                 let errorMsg = "An error occurred during the payment process";
