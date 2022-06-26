@@ -485,8 +485,8 @@ export default {
             error_country_check: false,
 
             paystep: 2,
-            paymenttype: 2,
-            deliverytype: 1,
+            paymenttype: 1,
+            deliverytype: 3,
 
             loading: false,
             mobileView: false,

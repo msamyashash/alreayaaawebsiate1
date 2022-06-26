@@ -3421,6 +3421,10 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
       let app = this;
    if (await this.ordersErrorsStepOne()) {
 
+      window.scrollTo(0,0);
+      window.scrollTo(0,0);
+      window.scrollTo(0,0);
+
             app.order.memebrcard_id="";
             app.order.membership_id=null;
             app.order.order_type='add';
