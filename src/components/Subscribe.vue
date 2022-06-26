@@ -3424,6 +3424,7 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
       window.scrollTo(0,0);
       window.scrollTo(0,0);
       window.scrollTo(0,0);
+      window.scrollTo(0,0);
 
             app.order.memebrcard_id="";
             app.order.membership_id=null;
