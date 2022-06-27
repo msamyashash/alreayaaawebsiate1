@@ -2076,7 +2076,11 @@ export default {
       let app = this;
       app.newLoading = true;
 
-      axios.get(API_URL + "/api/data").then(function (response) {
+      axios.get(API_URL + "/api/data",{
+  headers: {
+    'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization, Content-Language, Accept, Accept-Language'
+  }
+}).then(function (response) {
 
         app.countries = response.data.Country;
         app.currencies = app.currenciesSR;

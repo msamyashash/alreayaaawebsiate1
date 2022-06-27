@@ -656,9 +656,9 @@ export default {
                 
 
             } else {
-                let errorMsg = "An error occurred during the payment process";
+                let errorMsg = "An error occurred during the payment process"+ "  ( "+ this.$route.query.ResponseCode +")";
                 if (this.lang == "ar") {
-                    errorMsg = " حذث خطا فى عملية الدفع حاول مرة اخري";
+                    errorMsg = " حذث خطا فى عملية الدفع حاول مرة اخري"+ "  ( "+ this.$route.query.ResponseCode +")";
                 }
                 app.errorinprocess = true;
                 app.newLoading = false;
@@ -697,9 +697,9 @@ export default {
                 });
 
             } else {
-                let errorMsg = "An error occurred during the payment process";
+                let errorMsg = "An error occurred during the payment process" + "  ( "+ this.$route.query.ResponseCode +")";
                 if (this.lang == "ar") {
-                    errorMsg = " حذث خطا فى عملية الدفع حاول مرة اخري";
+                    errorMsg = " حذث خطا فى عملية الدفع حاول مرة اخري"+ "  ( "+ this.$route.query.ResponseCode +")";
                 }
                 app.errorinprocess = true;
                 app.newLoading = false;
