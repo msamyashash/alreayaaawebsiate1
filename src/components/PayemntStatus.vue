@@ -167,7 +167,7 @@
                                 </div>
                             </div>
 
-                            <div class="personal-form-signle cursor-pointer" v-bind:class="paymenttype == 2 ? 'form-active' : ''" @click="paymenttype = 2;deliverytype = 1 ;operation = 'update' ">
+                            <div class="personal-form-signle cursor-pointer" v-bind:class="paymenttype == 2 ? 'form-active' : ''" @click="paymenttype = 2;deliverytype = 1 ;operation = 'update' ;order.recivingbranch_id = ''">
                                 <div class="personal-form-icon">
                                     <i class="bx bx-money"></i>
                                 </div>

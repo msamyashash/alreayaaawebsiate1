@@ -152,13 +152,23 @@
                     </div>
                   </div>
                   <div class="category-block-description">
-                    <div class="description">
+                  
+                   <div class="description"  v-if="generalstaticofferfamily && generalstaticofferfamily >0">
+                      <span>{{
+                        lang == "ar"
+                          ? "الحد الادنى بطاقتين "
+                          : "Minimum Two Cards "
+                      }}</span>
+                    </div>
+                    <div class="description"  v-else>
                       <span>{{
                         lang == "ar"
                           ? "الحد الادنى بطاقتين للحصول على الخصم العائلي"
                           : "Minimum Two Cards for The Family Discount"
                       }}</span>
                     </div>
+                   
+
                     <div class="price" v-if="country">
                      
                       <span v-if=" !(generalstaticofferfamily && generalstaticofferfamily >0) "
@@ -168,7 +178,7 @@
 
                       <span style="text-decoration: line-through;" v-if="generalstaticofferfamily && generalstaticofferfamily >0"
                         >
-                        {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                        {{   parseInt(Number(family_price)*(1+taxValue)) }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
 
                       <span style="display:block ;color:red;" v-if=" generalstaticofferfamily && generalstaticofferfamily >0" 
                         >
@@ -209,7 +219,7 @@
 
                       <span style="text-decoration: line-through;" v-if="(generalstaticoffersingle && generalstaticoffersingle >0)"
                         >
-                        {{ single_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                        {{  parseInt(Number(single_price)*(1+taxValue))   }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
 
                       <span style="display:block;color:red;" v-if="(generalstaticoffersingle && generalstaticoffersingle >0)"
                         >
@@ -1254,7 +1264,7 @@
                   @click="
                     paymenttype = 2;
                     deliverytype = 1;
-                    order.recivingbranch_id = null;
+                    order.recivingbranch_id = '';
                     calculateTheTotalPrices();
                   "
                 >
@@ -1293,7 +1303,7 @@
                   v-bind:class="deliverytype == 1 ? 'form-active' : ''"
                   @click="
                     deliverytype = 1;
-                    order.recivingbranch_id = null;
+                    order.recivingbranch_id = '';
                     calculateTheTotalPrices();
                   "
                 >
@@ -1835,7 +1845,7 @@ export default {
         customer_district: "",
         offer_id: "",
         coupon_id: "",
-        recivingbranch_id: "",
+        recivingbranch_id: '',
         customer_detail_address: "",
         discount_code: "",
         discountpersentage: "",
@@ -3671,6 +3681,26 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
         app.paymenttype == 2 &&
         (!app.order.recivingbranch_id ||
           app.order.recivingbranch_id == "" ||
+          app.order.recivingbranch_id == null)
+      ) {
+        swal({
+          text: this.lang == "ar" ? "يرجي اختيار الفرع" : "Please select a branch",
+          icon: "warning",
+          buttons: false,
+          dangerMode: true,
+        });
+        this.loading = false;
+        this.newLoading = false;
+        this.finished = false;
+        return false;
+      }
+
+   if (
+        app.deliverytype == 1 &&
+        app.orderhandica == true &&
+        (!app.order.recivingbranch_id ||
+          app.order.recivingbranch_id == "" ||
+          app.order.recivingbranch_id == 40 ||
           app.order.recivingbranch_id == null)
       ) {
         swal({
