@@ -169,7 +169,7 @@
                     </div>
                    
 
-                    <div class="price" v-if="country">
+                    <div class="price" v-if="country && getGeneralAllStaticOffer_done">
                      
                       <span v-if=" !(generalstaticofferfamily && generalstaticofferfamily >0) "
                         >
@@ -185,8 +185,6 @@
                         {{  parseInt((Number(family_price)-(Number(family_price) * (Number(generalstaticofferfamily)/100)))*(1+taxValue)) }} {{ lang == "ar" ? currencies[1] : currencies[0] }}
                         {{ lang == "ar" ? "ساري لفترة محدودة" : "Valid for a limited time" }}
                         </span>
-
-
 
                     </div>
                   </div>
@@ -211,7 +209,7 @@
                           : "Single Card For One Individual"
                       }}</span>
                     </div>
-                    <div class="price" v-if="country">
+                    <div class="price" v-if="country && getGeneralAllStaticOffer_done">
                      
                       <span v-if=" !(generalstaticoffersingle && generalstaticoffersingle >0)"
                         >
@@ -1202,7 +1200,7 @@
                             {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
 
                          <span style="text-decoration: line-through; margin-left: 10px;" class="price-add-card" v-if="generalstaticofferfamily && generalstaticofferfamily >0">
-                             {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                             {{ parseInt(Number(family_price)*(1+taxValue)) }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
                         </div>
                       </div>
              
@@ -1744,7 +1742,7 @@ export default {
       terms_conditions: false,
       company: false,
       error_country_check: false,
-
+      getGeneralAllStaticOffer_done:false,  
       paystep: 1,
       paymenttype: 1,
       deliverytype: 3,
@@ -2076,11 +2074,7 @@ export default {
       let app = this;
       app.newLoading = true;
 
-      axios.get(API_URL + "/api/data",{
-  headers: {
-    'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization, Content-Language, Accept, Accept-Language'
-  }
-}).then(function (response) {
+      axios.get(API_URL + "/api/data").then(function (response) {
 
         app.countries = response.data.Country;
         app.currencies = app.currenciesSR;
@@ -3040,8 +3034,9 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
     },
 
     async getGeneralAllStaticOffer() {
-      let app = this;
 
+      let app = this;
+app.getGeneralAllStaticOffer_done=false;
     
     if (app.paymenttype == 1) {
        if (app.deliverytype == 3) {
@@ -3072,6 +3067,7 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
         .post(API_URL + `/api/v2/getGeneralAllStaticOffer?lang=${this.lang}`, formdata)
         .then(
           function (response) {
+            app.getGeneralAllStaticOffer_done=true;
             console.log("get Static Offer ", response);
             app.order.discount_code
    if (response.data.success == true) {
@@ -3111,10 +3107,11 @@ if((app.errors.gender ==true || app.errors.nationality == true )){
             }
           }
         ).catch((err) => {
+          getGeneralAllStaticOffer_done=true;
            app.generalstaticoffersingle= 0
  app.generalstaticofferfamily= 0
   
-            console.log("error in server");
+            console.log("error in server get General AllStatic Offer");
             app.codeValidationDone = true;
             app.codeValidationMessage = err.response.data.message;
             app.order.offer_id = "";

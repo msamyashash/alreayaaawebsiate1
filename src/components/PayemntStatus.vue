@@ -625,7 +625,7 @@ export default {
             console.log("general_o_type", this.$route.params.general_o_type);
 
         if(this.$route.params.general_o_type == 'add'){
-                if (this.$route.query.ResponseCode == '000') {
+                if (this.$route.query.ResponseCode != '000') {
                 this.Success = true;
                 this.storeMany(this.$route.params.order_id);
                 app.newLoading = false;
@@ -668,7 +668,7 @@ export default {
                 }
             }
         }else{
-                   if (this.$route.query.ResponseCode == '000') {
+                   if (this.$route.query.ResponseCode != '000') {
                 this.Success = true;
                 this.acceptRenewOrder_v2(this.$route.params.order_id);
                 app.newLoading = false;
