@@ -2693,11 +2693,11 @@ if(this.general_o_type == 'add'){
                   'value' : Number(app.order.totalPrice), 
                   'order_id' : order_id
                 });
-                snaptr("track", "Purchase", {
-                  'client_email': app.order.email, 
+                snaptr("track", "PURCHASE", {
+                  'user_email': app.order.email, 
                   'currency': app.country == 8 ? "SAR" : "BHD", 
-                  'value' : Number(app.order.totalPrice), 
-                  'order_id' : order_id
+                  'price' : Number(app.order.totalPrice), 
+                  'item_ids' : order_id
                 });
                 twq("track", "Purchase", {
                   'client_email': app.order.email, 
@@ -3421,8 +3421,8 @@ app.getGeneralAllStaticOffer_done=false;
           Handicap_Check: app.handica == false ? "Not Handicap" : "Handicap",
         });
         snaptr("track", "ADD_CART", {
-          card_type: app.type == 1 ? "Single" : "Family",
-          Handicap_Check: app.handica == false ? "Not Handicap" : "Handicap",
+          'card_type': app.type == 1 ? "Single" : "Family",
+          'Handicap_Check': app.handica == false ? "Not Handicap" : "Handicap",
         });
         twq("track", "AddToCart", {
           card_type: app.type == 1 ? "Single" : "Family",

@@ -634,7 +634,12 @@ export default {
 
                 // CODE PIXEL TAG
                 fbq('track', 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
-                snaptr('track', 'Purchase', {'client_email': app.order.email, 'currency': app.country == 8 ? "SAR" : "BHD", 'price' : Number(app.order.totalPrice), 'item_ids' : this.$route.params.order_id});
+                snaptr("track", "PURCHASE", {
+                  'user_email': app.order.email, 
+                  'currency': app.country == 8 ? "SAR" : "BHD", 
+                  'price' : Number(app.order.totalPrice), 
+                  'item_ids' : order_id
+                });
                 twq('track', 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
                 ttq.track( 'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), content_id : this.$route.params.order_id});
                 gtag('event',  'Purchase', {'client_email': app.order.email, currency: app.country == 8 ? "SAR" : "BHD", value : Number(app.order.totalPrice), order_id : this.$route.params.order_id});
