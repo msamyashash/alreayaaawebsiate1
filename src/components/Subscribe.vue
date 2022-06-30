@@ -171,9 +171,9 @@
 
                     <div class="price" v-if="country && getGeneralAllStaticOffer_done">
                      
-                      <span v-if=" !(generalstaticofferfamily && generalstaticofferfamily >0) "
-                        >
-                        {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                      <span v-if=" !(generalstaticofferfamily && generalstaticofferfamily >0)">
+                        {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}
+                      </span>
                      
 
                       <span style="text-decoration: line-through;" v-if="generalstaticofferfamily && generalstaticofferfamily >0"
@@ -1196,11 +1196,13 @@
                           
                           <span >{{ lang == "ar" ? "  إضافة بطاقة " : " Add Card " }} </span>
                       
-                          <span v-if="!(generalstaticofferfamily && generalstaticofferfamily >0) " class="price-add-card" >
-                            {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                          <span v-if="!(generalstaticofferfamily && generalstaticofferfamily >0) && (country == 8 || country == 11)" class="price-add-card" >
+                            {{ family_price }} {{ lang == "ar" ? currencies[1] : currencies[0] }}
+                          </span>
 
                          <span style="text-decoration: line-through; margin-left: 10px;" class="price-add-card" v-if="generalstaticofferfamily && generalstaticofferfamily >0">
-                             {{ parseInt(Number(family_price)*(1+taxValue)) }} {{ lang == "ar" ? currencies[1] : currencies[0] }}</span>
+                             {{ parseInt(Number(family_price)*(1+taxValue)) }} {{ lang == "ar" ? currencies[1] : currencies[0] }}
+                          </span>
                         </div>
                       </div>
              
